@@ -27,6 +27,7 @@ async function run() {
     await user.save();
 
     console.log('✅ User created with id:', user._id);
+    console.log("👉 After save (in memory), user.passwordHash:", user.passwordHash);
 
     // Fetch from DB including passwordHash (since select: false)
 

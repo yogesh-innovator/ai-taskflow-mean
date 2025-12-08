@@ -3,8 +3,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
-
+const  {config} = require('./src/config/env');
+const {notFoundHandler, errorHandler} = require('./src/middleware/error.middleware');
 require('./src/models/user.model');
+
+const authRoutes = require('./src/routes/auth.routes');
+const protectedRoutes = require('./src/routes/protected.routes');
 
 const app = express();
 
@@ -16,8 +20,17 @@ app.use(morgan("dev"));
 // --------------- Health check route ---------
 
 app.get("/api/health", (req, res) => {
-  res.send({ status: "ok", message: "AI Taskflow mean backend is running" });
+  res.json({ status: "ok", message: "AI Taskflow mean backend is running" });
 });
+
+// ------------- Routes --------
+app.use('/api/auth', authRoutes);
+app.use('/api/protected', protectedRoutes);
+
+// ----------- 404 + Error handling --------
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 // ------------ MongoDB connection -----------
 
