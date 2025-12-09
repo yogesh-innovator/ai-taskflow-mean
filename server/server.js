@@ -10,9 +10,13 @@ require('./src/models/user.model');
 const authRoutes = require('./src/routes/auth.routes');
 const protectedRoutes = require('./src/routes/protected.routes');
 
+const helmet = require('helmet');
+const {errors: celebrateErrorHandler} = require('celebrate');
+
 const app = express();
 
 // ----- Basic middleware ---------------
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
@@ -30,6 +34,11 @@ app.use('/api/protected', protectedRoutes);
 // ----------- 404 + Error handling --------
 
 app.use(notFoundHandler);
+
+// validation errors from celebrate
+app.use(celebrateErrorHandler());
+
+// Central error handler
 app.use(errorHandler);
 
 // ------------ MongoDB connection -----------

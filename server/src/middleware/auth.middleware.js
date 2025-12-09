@@ -16,7 +16,7 @@ function authGuard(req, _res, next){
         };
         return next();
     } catch(err){
-        return next(new ApiError('Invalid or expired token'));
+        return next(new ApiError(401, 'Invalid or expired token'));
     }
 }
 
