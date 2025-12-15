@@ -1,0 +1,19 @@
+<div class="dashboard">
+    <header class="dashboard-header">
+        <h1>Dashboard</h1>
+        <div class="user-info">
+            <span *ngIf="authService.user() as user">
+                {{user.name}} ({{user.role}})
+            </span>
+            <button (click)="logout()">Logout</button>
+        </div>
+    </header>
+
+<main>
+    <p *ngIf="loading">Loading protected data...</p>
+    <p *ngIf="error" class="error">{{error}}</p>
+    <p *ngIf="!loading && !error">{{message}}</p>
+</main>
+
+
+</div>
