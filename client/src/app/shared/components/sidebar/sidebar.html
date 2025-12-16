@@ -1,0 +1,9 @@
+<nav class="app-sidebar">
+    <ul>
+        <li *ngFor="let item of  navItems">
+            <a [routerLink]="item.path" *ngIf="!item.roles || item.roles.includes(authService.user()?.role)">
+                {{item.label}}
+            </a>
+        </li>
+    </ul>
+</nav>

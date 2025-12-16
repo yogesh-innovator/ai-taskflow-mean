@@ -1,0 +1,11 @@
+<header class="app-header">
+    <div class="logo">AI Taskflow</div>
+
+    <div class="header-right">
+        <span *ngIf="authService.user() as user">
+            Welcome, {{user.name}}
+        </span>
+
+        <button (click)="logout()">Logout</button>
+    </div>
+</header>
